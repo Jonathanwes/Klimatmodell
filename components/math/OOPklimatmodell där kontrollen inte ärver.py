@@ -6,19 +6,16 @@ Created on Wed Sep 28 08:47:02 2022
 """
 
 class klimatmodell_start:
-    def __init__(self,resolution):
+    def __init__(self,resolution,start_albedo=lambda x :0.22255 + 0.000523706*np.degrees(x)+0.0000868482*np.degrees(x)**2-1.20516*10**-7*np.degrees(x)**3-3.68369*10**-9*np.degrees(x)**4):
         
         self.latitud=np.linspace(-np.pi/2,np.pi/2, resolution)
         self.steffe=5.67*10**(-8)
-        self.albedot_hela_jorden=self.start_albedo(self.latitud)
-        
+        self.albedot_hela_jorden=start_albedo(self.latitud)
+        self.solar_konstant=self.S(self.latitud)
     def emissivitet(self,x):
         return 0.929789+0.000335482*np.degrees(x)-0.000179486*np.degrees(x)**2 - 7.16273 * 10**-7*np.degrees(x)**3 +9.40092*10**-8*np.degrees(x)**4 + 2.33581*10**-10*np.degrees(x)**5 -1.90827*10**-11*np.degrees(x)** 6 - 1.68775*10**-14*np.degrees(x)**7 +1.18909*10**-15*np.degrees(x)**8
     def S(self,x):
         return 1360*(1-0.48*((1/2)*(3*(np.sin(x)**2)-1)))
-    def start_albedo(self,x):
-        return 0.22255 + 0.000523706*np.degrees(x)+0.0000868482*np.degrees(x)**2-1.20516*10**-7*np.degrees(x)**3-3.68369*10**-9*np.degrees(x)**4
-    
     def albedo(self) -> np.array:
         if not hasattr(self , "temperaturen_hela_jorden"): # Could create a try/except but wont bother
             print("Run Calc_T first to create a temperature")
@@ -41,7 +38,7 @@ class klimatmodell_start:
     def calc_T(self): #räknar ut Temperaturen för alla latituder
         albedot=self.albedot_hela_jorden
         
-        self.temperaturen_hela_jorden=(self.S(self.latitud) * (1-albedot) / (4*self.steffe*(1-(self.emissivitet (self.latitud)/2) )))**(1/4)
+        self.temperaturen_hela_jorden=(self.solar_konstant * (1-albedot) / (4*self.steffe*(1-(self.emissivitet (self.latitud)/2) )))**(1/4)
         return self.temperaturen_hela_jorden
 
 
