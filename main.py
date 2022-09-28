@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 27 15:33:36 2022
-
-@author: Jonat
-"""
-
 from dash import Dash, html
 from dash_bootstrap_components.themes import BOOTSTRAP
 from components.layout import create_layout
