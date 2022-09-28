@@ -200,7 +200,7 @@ def mega_function(app: Dash,itterationer):
     #data1=pd.DataFrame(data={"x":new_x,"y":new_y,"latitud":new_z,"Temperatur":color})
     
     trace1=go.Scatter3d(x=xs,y=ys,z=zs,marker={"size":1,"color":"black"})
-    trace2=go.Scatter3d(x=new_x,y=new_y,z=new_z,marker={"color":color,"colorbar":dict(thickness=10)})
+    trace2=go.Scatter3d(x=new_x,y=new_y,z=new_z,marker={"color":color,"colorbar":{"thickness":10,"x" : 0.9,"len":0.7}})
     trace3=go.Scatter3d(x=new_x2,y=new_y2,z=new_z2,marker={"color":color2})
     
     layout={"title":"Temperatur efter " + str(itterationer)}
