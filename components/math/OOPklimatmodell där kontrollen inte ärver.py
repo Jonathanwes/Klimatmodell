@@ -82,10 +82,18 @@ class klimatmodell_kontroll:
             self.albedo_itterationer.append(self.klimatmodell.albedo())
             self.temperatur_itteration.append(self.klimatmodell.calc_T())
             
+            
 if __name__=="__main__":#Debug
     import numpy as np
-    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(5))
-    a.itterera(10)
+    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(50))
+    a.itterera(1)
+    from sfär import sfär
+    import matplotlib.pyplot as plt
+    fig=plt.figure()
+    ax=fig.add_subplot(projection="3d")
+    x,y,z=sfär(50,1)
+    ax.scatter(x,y,z,c=[a.temperatur_itteration[0] for x in range(50)])
+    
 
     
     

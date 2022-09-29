@@ -68,8 +68,11 @@ def mega_function(app: Dash,itterationer):
         a=(0.7-medel)/2.25
         return (a,medel)
     
-    temperatur_på_hela_jorden=alla_temperaturer(start_albedo)
     
+    
+    
+    temperatur_på_hela_jorden=alla_temperaturer(start_albedo)
+
     for i in range(itterationer):
         albedot_på_hela_jorden=alla_albedo(temperatur_på_hela_jorden)
         temperatur_på_hela_jorden=alla_temperaturer(albedot_på_hela_jorden)
@@ -94,7 +97,7 @@ def mega_function(app: Dash,itterationer):
     new_z=[]
     color=[]
     
-    for x1,y1,z1 in zip(x,y,z):
+    for x1,y1,z1 in zip(x,y,z): #packar upp x,y,z
         new_x.extend(x1)
         new_y.extend(y1)
         new_z.extend(z1)
@@ -183,6 +186,7 @@ def mega_function(app: Dash,itterationer):
     new_y2=[]
     new_z2=[]
     color2=[]
+    
     for row in range(20):
         new_x2.extend([0.1*row-1 for i in range(len(temperatur_på_hela_jorden))])
         new_y2.extend([1.1 for i in range(len(temperatur_på_hela_jorden))])

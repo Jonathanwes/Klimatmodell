@@ -18,7 +18,7 @@ class klimatmodell_start:
     def start_albedo(self,x):
         return 0.22255 + 0.000523706*np.degrees(x)+0.0000868482*np.degrees(x)**2-1.20516*10**-7*np.degrees(x)**3-3.68369*10**-9*np.degrees(x)**4
     
-    def albedo(self,T: np.array) -> np.array:
+    def albedo(self,T):
         Ai=0.7
         A0=0.289
         Ti=260
