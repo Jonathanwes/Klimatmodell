@@ -76,9 +76,6 @@ def mega_function(app: Dash,itterationer):
 
 
         
-    x = np.outer(np.linspace(-2, 2, 30), np.ones(30))
-    y = x.copy().T
-    z = np.cos(x ** 2 + y ** 2)
     resolution=50
     phi = np.linspace(0, 2*np.pi, 2*resolution)
     theta = np.linspace(0, np.pi, resolution)
@@ -103,7 +100,6 @@ def mega_function(app: Dash,itterationer):
         new_z.extend(z1)
         #color.extend(S(z1)) ger solarkonstant istället
         color.extend((abs(np.array(temperatur_på_hela_jorden)-1)))
-    #fig=go.Figure(data=[go.Scatter3d(x=new_x,y=new_y,z=new_z,mode="markers",marker={"color":albedot_på_hela_jorden})])
     
 
     
