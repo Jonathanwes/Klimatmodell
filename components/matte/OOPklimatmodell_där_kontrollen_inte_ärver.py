@@ -7,8 +7,8 @@ Created on Wed Sep 28 08:47:02 2022
 
 import numpy as np
 #import sfär
-from sfär import sfär
-import matplotlib.pyplot as plt
+#from sfär import sfär
+#import matplotlib.pyplot as plt
 
 class klimatmodell_start:
     """
@@ -48,10 +48,11 @@ class klimatmodell_start:
         
         
         albedot=np.zeros(T.shape)
-        albedot[T<Ti]=Ai
-        albedot[T>T0]=A0
+        albedot[T<=Ti]=Ai
+        albedot[T>=T0]=A0
         
         middle_indexes=np.logical_and(Ti<T,T<T0) # creates Boolean array, neater solution probably exists
+        
         albedot[middle_indexes] = A0 + (Ai-A0)*((T[middle_indexes]-T0)**2 / ((Ti-T0))**2)
         self.albedot_hela_jorden=albedot
         return self.albedot_hela_jorden
@@ -75,29 +76,32 @@ class klimatmodell_kontroll:
         
         self.itteration=0
         
-        self.temperatur_itteration=[]
+        self.temperatur_itterationer=[]
         self.albedo_itterationer=[]
         
         self.albedo_itterationer.append(self.klimatmodell.albedot_hela_jorden)
-        self.temperatur_itteration.append(self.klimatmodell.calc_T())
+        self.temperatur_itterationer.append(self.klimatmodell.calc_T())
         
     def itterera(self,steg):
         self.itteration+=steg
         for i in range(steg):
             self.albedo_itterationer.append(self.klimatmodell.albedo())
-            self.temperatur_itteration.append(self.klimatmodell.calc_T())
+            self.temperatur_itterationer.append(self.klimatmodell.calc_T())
 
 
             
 if __name__=="__main__":#Debug
-    
+    import sfär
+    import matplotlib.pyplot as plt
     
     a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(100))
-    a.itterera(1)
-    fig=plt.figure()
-    ax=fig.add_subplot(projection="3d")
-    x,y,z=sfär(100,1)
-    ax.scatter(x,y,z,c=[a.temperatur_itteration[0] for x in range(50)])
+    a.itterera(5)
+    plt.scatter(a.klimatmodell.latitud,a.temperatur_itterationer[0])
+    #fig=plt.figure()
+    #ax=fig.add_subplot(projection="3d")
+    #x,y,z=sfär.sfär(100,1)
+    
+    #ax.scatter(x,y,z,c=[a.albedo_itterationer[0] for x in range(50)])
     
 
     
