@@ -2,9 +2,6 @@
 
 import numpy as np
 def klimatmodell():
-    
-    
-    
     def albedo(T): #Räknar ut albedot för en temperatur. 
         Ai=0.7
         A0=0.289
@@ -15,7 +12,7 @@ def klimatmodell():
         if Ti<T<T0:
             return A0 + (Ai-A0)*((T-T0)**2 / ((Ti-T0))**2)
         if T>T0:
-            retu'rn A0
+            return A0
         
     def alla_albedo(temperatur): #räknar ut albedot för alla latituder
         albedolista=[]

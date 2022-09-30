@@ -5,6 +5,11 @@ Created on Wed Sep 28 08:47:02 2022
 @author: Jonat
 """
 
+import numpy as np
+#import sfär
+from sfär import sfär
+import matplotlib.pyplot as plt
+
 class klimatmodell_start:
     """
     Definerar modellen och håller koll på modellens värden
@@ -81,17 +86,17 @@ class klimatmodell_kontroll:
         for i in range(steg):
             self.albedo_itterationer.append(self.klimatmodell.albedo())
             self.temperatur_itteration.append(self.klimatmodell.calc_T())
-            
+
+
             
 if __name__=="__main__":#Debug
-    import numpy as np
-    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(50))
+    
+    
+    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(100))
     a.itterera(1)
-    from sfär import sfär
-    import matplotlib.pyplot as plt
     fig=plt.figure()
     ax=fig.add_subplot(projection="3d")
-    x,y,z=sfär(50,1)
+    x,y,z=sfär(100,1)
     ax.scatter(x,y,z,c=[a.temperatur_itteration[0] for x in range(50)])
     
 

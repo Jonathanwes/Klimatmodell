@@ -9,7 +9,7 @@ import numpy as np
 from mpl_toolkits.basemap import Basemap
 import plotly.graph_objects as go    
 
-def country_outlines():
+def country_outlines(radie=1.1):
     
     def degree2radians(degree):
         #convert degrees to radians
@@ -74,6 +74,5 @@ def country_outlines():
     lats=cc_lats+[None]+country_lats
 
     xs, ys, zs=mapping_map_to_sphere(lons, lats, radius=1.1)
-    trace1=go.Scatter3d(x=xs,y=ys,z=zs,marker={"size":1,"color":"black"})
     
-    return trace1
+    return go.Scatter3d(x=xs,y=ys,z=zs,marker={"size":1,"color":"black"})

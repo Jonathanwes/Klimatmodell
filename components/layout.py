@@ -1,5 +1,6 @@
 from dash import Dash, html
 from . import Sphere
+from . import slider
 
 def create_layout(app: Dash) -> html.Div:
     return html.Div(
@@ -13,9 +14,13 @@ def create_layout(app: Dash) -> html.Div:
                     html.Div(
                     children=[Sphere.mega_function(app,0),Sphere.mega_function(app,1),Sphere.mega_function(app,5)]),
             ]
-            )
+            ),
+            slider.create_slider(app),
+            html.Div(id="text1")
 
             ],
+
+            
             
     )
     
