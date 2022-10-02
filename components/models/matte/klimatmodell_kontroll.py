@@ -71,11 +71,8 @@ class klimatmodell_kontroll:
     skickar in en klimatmodell, gör det möjligt att sätta en ny startalbedo eller resolution
     """
     def __init__(self, klimatmodell=klimatmodell_start(50)):
-        
         self.klimatmodell=klimatmodell
-        
         self.itteration=0
-        
         self.temperatur_itterationer=[]
         self.albedo_itterationer=[]
         

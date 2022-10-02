@@ -7,7 +7,6 @@ Created on Wed Sep 28 10:46:12 2022
 
 import numpy as np
 from mpl_toolkits.basemap import Basemap
-import plotly.graph_objects as go    
 
 def country_outlines(radie=1.1):
     
@@ -75,4 +74,4 @@ def country_outlines(radie=1.1):
 
     xs, ys, zs=mapping_map_to_sphere(lons, lats, radius=1.1)
     
-    return go.Scatter3d(x=xs,y=ys,z=zs,marker={"size":1,"color":"black"})
+    return xs, ys , zs
