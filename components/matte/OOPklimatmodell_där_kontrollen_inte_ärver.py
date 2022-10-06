@@ -30,7 +30,7 @@ class klimatmodell_start:
         
         
     def emissivitet(self,latitud): #Räknar ut emissiviteten för varje latitud förändras inte under modellens gång
-        return 0.929789+0.000335482*np.degrees(latitud)-0.000179486*np.degrees(latitud)**2 - 7.16273 * 10**-7*np.degrees(latitud)**3 +9.40092*10**-8*np.degrees(latitud)**4 + 2.33581*10**-10*np.degrees(latitud)**5 -1.90827*10**-11*np.degrees(latitud)** 6 - 1.68775*10**-14*np.degrees(latitud)**7 +1.18909*10**-15*np.degrees(latitud)**8
+        return (0.929789+0.000335482*np.degrees(latitud)-0.000179486*np.degrees(latitud)**2 - 7.16273 * 10**-7*np.degrees(latitud)**3 +9.40092*10**-8*np.degrees(latitud)**4 + 2.33581*10**-10*np.degrees(latitud)**5 -1.90827*10**-11*np.degrees(latitud)** 6 - 1.68775*10**-14*np.degrees(latitud)**7 +1.18909*10**-15*np.degrees(latitud)**8)
     
     def S(self,latitud):
         return 1360*(1-0.48*((1/2)*(3*(np.sin(latitud)**2)-1)))
@@ -61,6 +61,7 @@ class klimatmodell_start:
     def calc_T(self): #räknar ut Temperaturen för alla latituder
         self.temperaturen_hela_jorden=(self.solar_konstant * (1-self.albedot_hela_jorden) / (4*self.steffe*(1-(self.emissivitet_konstant)/2)))**(1/4)
         return self.temperaturen_hela_jorden
+    
 
 
 class klimatmodell_kontroll:
@@ -85,8 +86,15 @@ class klimatmodell_kontroll:
     def itterera(self,steg):
         self.itteration+=steg
         for i in range(steg):
+            
+            
             self.albedo_itterationer.append(self.klimatmodell.albedo())
             self.temperatur_itterationer.append(self.klimatmodell.calc_T())
+            
+            if abs(sum(self.temperatur_itterationer[i])-sum(self.temperatur_itterationer[i-1]))<1:
+                print(1)
+                break
+                
 
 
             
@@ -95,8 +103,11 @@ if __name__=="__main__":#Debug
     import matplotlib.pyplot as plt
     
     a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(100))
-    a.itterera(5)
-    plt.scatter(a.klimatmodell.latitud,a.temperatur_itterationer[0])
+    a.itterera(100)
+    #for i in range(len(a.temperatur_itterationer)):
+     #   plt.scatter(a.klimatmodell.latitud,a.temperatur_itterationer[i],label=f"itteration "+str(i),s=2)
+    plt.scatter(a.klimatmodell.latitud,a.temperatur_itterationer[-1],label=f"itteration "+str(len(a.temperatur_itterationer)),s=2)
+    plt.legend()
     #fig=plt.figure()
     #ax=fig.add_subplot(projection="3d")
     #x,y,z=sfär.sfär(100,1)
