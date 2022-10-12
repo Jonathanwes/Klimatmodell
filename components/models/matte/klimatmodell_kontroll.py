@@ -26,7 +26,7 @@ class klimatmodell_start:
         
         
     def emissivitet(self,latitud): #Räknar ut emissiviteten för varje latitud förändras inte under modellens gång
-        return (0.929789+0.000335482*np.degrees(latitud)-0.000179486*np.degrees(latitud)**2 - 7.16273 * 10**-7*np.degrees(latitud)**3 +9.40092*10**-8*np.degrees(latitud)**4 + 2.33581*10**-10*np.degrees(latitud)**5 -1.90827*10**-11*np.degrees(latitud)** 6 - 1.68775*10**-14*np.degrees(latitud)**7 +1.18909*10**-15*np.degrees(latitud)**8)
+        return 0.46*(0.929789+0.000335482*np.degrees(latitud)-0.000179486*np.degrees(latitud)**2 - 7.16273 * 10**-7*np.degrees(latitud)**3 +9.40092*10**-8*np.degrees(latitud)**4 + 2.33581*10**-10*np.degrees(latitud)**5 -1.90827*10**-11*np.degrees(latitud)** 6 - 1.68775*10**-14*np.degrees(latitud)**7 +1.18909*10**-15*np.degrees(latitud)**8)
     
     def S(self,latitud):
         return 1360*(1-0.48*((1/2)*(3*(np.sin(latitud)**2)-1)))
@@ -51,13 +51,13 @@ class klimatmodell_start:
         
         albedot[middle_indexes] = A0 + (Ai-A0)*((T[middle_indexes]-T0)**2 / ((Ti-T0))**2)
         self.albedot_hela_jorden=albedot
-        self.albedo_utjämning()
+        #self.albedo_utjämning()
         return self.albedot_hela_jorden
     
     
     def calc_T(self): #räknar ut Temperaturen för alla latituder
         self.temperaturen_hela_jorden=(self.solar_konstant * (1-self.albedot_hela_jorden) / (4*self.steffe*(1-(self.emissivitet_konstant)/2)))**(1/4)
-        self.temperatur_utjämning()
+       # self.temperatur_utjämning()
         return self.temperaturen_hela_jorden
     
     def temperatur_utjämning(self):
@@ -94,7 +94,6 @@ class klimatmodell_kontroll:
         self.itteration=0
         self.temperatur_itterationer=[]
         self.albedo_itterationer=[]
-        
         self.albedo_itterationer.append(self.klimatmodell.albedot_hela_jorden)
         self.temperatur_itterationer.append(self.klimatmodell.calc_T())
         
@@ -109,12 +108,12 @@ class klimatmodell_kontroll:
 if __name__=="__main__":#Debug
     #import sfär
     import matplotlib.pyplot as plt
-    
-    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(100))
+    a=klimatmodell_kontroll(klimatmodell=klimatmodell_start(200))
     a.itterera(30)
-    plt.scatter(a.klimatmodell.latitud,a.temperatur_itterationer[30])
+    plt.scatter(a.klimatmodell.latitud,a.albedo_itterationer[30])
     plt.xlabel("latitud")
-    plt.ylabel("temperatur")
+    plt.ylabel("albedo")
+    plt.title("Emissivitet ${\cdot}$ 0.46")
     #fig=plt.figure()
     #ax=fig.add_subplot(projection="3d")
     #x,y,z=sfär.sfär(100,1)
