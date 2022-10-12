@@ -10,7 +10,14 @@ def sfär(resolution,radie=1):
     x = cx + np.cos(phi) * r_xy 
     y = cy + np.sin(phi) * r_xy
     z = cz + r * np.cos(theta)
-    return (x,y,z)
+    new_x,new_y,new_z=[],[],[]    
+    
+    
+    for x1,y1,z1 in zip(x,y,z): #packar upp x,y,z
+        new_x.extend(x1)
+        new_y.extend(y1)
+        new_z.extend(z1)
+    return new_x,new_y,new_z
 
 
 if __name__ == "__main__":
